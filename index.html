@@ -4,17 +4,229 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Code is bad ⚡ @rileyjshaw</title>
+		<!-- *Especially* this code! Hehe. Read at your own risk. -->
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+		<style>
+			html, body, .presentation, .section-progress, .reveal {
+				height: 100%;
+				width: 100%;
+				box-sizing: border-box;
+			}
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+			body {
+				position: relative;
+				padding: 48px;
+				transition: padding 0.4s 0.8s;
+			}
+
+			body.letterbox {
+				padding: 96px 48px;
+				transition: padding 0.4s 0.4s;
+			}
+
+			.reveal section.full-center {
+				text-align: center;
+			}
+
+			.reveal .slides {
+				top: 44px;
+			}
+
+			.top-title, .twitter-link {
+				opacity: 0;
+				transition: opacity 0.4s 0.4s;
+				right: 50%;
+				position: absolute;
+				font-size: 38px;
+			}
+
+			.top-title {
+				top: 48px;
+				transform: translate(50%, -50%);
+			}
+
+			.twitter-link {
+				bottom: 48px;
+				text-decoration: none;
+				color: #1da1f2;
+				transform: translate(50%, 50%);
+			}
+
+			.letterbox .twitter-link, .letterbox .top-title {
+				opacity: 1;
+				transition: opacity 0.4s 0.8s;
+			}
+
+			html body * {
+				font-family: Inconsolata, monospace !important;
+			}
+
+			html body .reveal section {
+				text-align: left;
+			}
+
+			.presentation {
+				display: flex;
+				border-radius: 8px;
+				border: 4px solid black;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.section-progress {
+				list-style: none;
+				display: flex;
+				flex-direction: column;
+				position: absolute;
+				top: 0;
+				z-index: 9001;
+				left: 0;
+				transform: translateX(-2px);
+				padding: 0;
+				margin: 0;
+				align-items: flex-end;
+				justify-content: space-between;
+				width: 50%;
+				transition: opacity 0.4s 0.4s, transform 0.4s, background 0.4s;
+				box-sizing: content-box;
+				border-right: 4px solid #000;
+			}
+
+			.section-progress::before, .section-progress::after {
+				content: '';
+			}
+
+			.section-progress.hidden {
+				opacity: 0;
+			}
+
+			.section-progress.left {
+				background: #eee;
+				transform: translateX(90px) translateX(-100%);
+			}
+
+			.section-progress li {
+				border-radius: 50%;
+				background: #fff;
+				height: 1.6em;
+				line-height: 1.6em;
+				transform: translateX(50%);
+				font-size: 48px;
+				text-align: center;
+				width: 1.6em;
+				border: 4px solid #000;
+				transition: transform 0.4s;
+			}
+
+			.section-progress li.active {
+				z-index: 1;
+				transform: translateX(50%) scale(1.4);
+			}
+
+			.section-progress .icon-description {
+				display: none;
+			}
+
+			.section-progress .icon {
+				position: relative;
+			}
+
+			.icon-hand {
+				top: 0.08em;
+				right: 0.02em;
+			}
+
+			.icon-radio {
+				top: 0.03em;
+			}
+
+			.icon-cd {
+				top: 0.1em;
+			}
+
+			.icon-iphone {
+				top: 0.09em;
+			}
+
+			.icon-finish {
+				top: 0.1em;
+				left: 0.02em;
+			}
+
+			.progress-intro .section-progress .icon-description {
+				display: block;
+				opacity: 0;
+				transition: opacity 0.4s;
+				white-space: nowrap;
+				transform: translate(10%, -50%);
+				position: absolute;
+				left: 100%;
+				top: 50%;
+				font-size: 24px;
+			}
+
+			.progress-intro .section-progress li:first-child .icon-description {
+				display: none;
+			}
+
+			.progress-intro .section-progress .icon-description::before {
+				content: '<-- ';
+			}
+
+			.progress-intro .section-progress li.active .icon-description {
+				opacity: 1;
+			}
+
+			.progress-intro .section-progress li:first-child.active .icon {
+				animation: wave 1s 1s linear;
+			}
+
+			.reveal section h1.with-subtitle {
+				margin-bottom: 0;
+			}
+			.reveal section h1.with-subtitle + p {
+				margin-top: 0;
+			}
+
+			.reveal section img {
+				border: 0;
+			}
+
+			.reveal section img.no-shadow {
+				box-shadow: none;
+			}
+
+			@keyframes wave {
+				0% {
+					transform:rotate(0deg);
+				}
+				10% {
+					transform:rotate(10deg);
+				}
+				30% {
+					transform:rotate(-10deg);
+				}
+				50% {
+					transform:rotate(10deg);
+				}
+				70% {
+					transform:rotate(-10deg);
+				}
+				90% {
+					transform:rotate(10deg);
+				}
+				100% {
+					transform:rotate(0deg);
+				}
+			}
+		</style>
 
 		<!-- Printing and PDF exports -->
 		<script>
-			var link = document.createElement( 'link' );
+			var link = document.createElement('link');
 			link.rel = 'stylesheet';
 			link.type = 'text/css';
 			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
@@ -22,29 +234,249 @@
 		</script>
 	</head>
 	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+		<div class="top-title">Intro</div>
+		<div class="presentation">
+			<ul class="section-progress hidden">
+				<li class="active"><div class="icon icon-hand">👋</div><span class="icon-description">Intro</span></li>
+				<li><div class="icon icon-radio">📻</div><span class="icon-description">Existing product</span></li>
+				<li><div class="icon icon-cd">📀</div><span class="icon-description">Overlapping product</span></li>
+				<li><div class="icon icon-iphone">📱</div><span class="icon-description">New product</span></li>
+				<li><div class="icon icon-finish">🏁</div><span class="icon-description">Questions!</span></li>
+			</ul>
+			<div class="reveal">
+				<div class="slides">
+					<section data-section="title">
+						<h1 class="with-subtitle">CODE IS BAD</h1>
+						<p>A journey in maintainability with @rileyjshaw.</p>
+						<aside class="notes">
+							<!-- TODO - eventually, fill this out with paragraph form text (including stuff like "thanks for having me") so that folks reading at home can follow along -->
+							<p>Hi, thanks so much for having me!</p>
+							<p>This is a short talk about how we, as developers and designers, love a clean slate. We like to build things from scratch, and that's awesome. But a lot of the time there are pretty substantial organizational costs from building things from scratch. I'm gonna leave a bunch of time after for questions or just to hang out, here we go hold onto your butts.</p>
+						</aside>
+					</section>
+					<section data-section="intro">
+						<ul>
+							<li>he/him</li>
+							<li>toronto</li>
+							<li><del>electrical</del> software engineer</li>
+							<li>khan academy</li>
+						</ul>
+					</section>
+					<section>
+						<img class="no-shadow" src="./img/ka_logo.png" alt="Khan Academy logo">
+						<img src="./img/ka_algebra_page.png" alt="Khan Academy algebra page screenshot">
+						<aside class="notes">Our mission is..</aside>
+					</section>
+					<section class="full-center" data-section="khan-intro">
+						<img src="img/old_video.gif" alt="Our old video player" style="height: 500px">
+						<aside class="notes">Khan Academy started about 10 years ago as a way for our founder to help his cousins learn math. Humble beginnings. We've come a long way since then. Over the summer I rewrote our video player, and that's what sparked a lot of the thought that went into this talk.</aside>
+					</section>
+					<section data-section="progress-intro">
+						<span class="fragment current-visible" data-active-section="1"></span>
+						<span class="fragment current-visible" data-active-section="2"></span>
+						<span class="fragment current-visible" data-active-section="3"></span>
+						<span class="fragment current-visible" data-active-section="4"></span>
+						<aside class="notes">
+							<p>So, code is bad. What do I <em>mean</em> by that?</p>
+							<p>It's my livelihood, one of my hobbies...</p>
+							<p>Bad milk etc.</p>
+							<p>Maxim: The Best Code is No Code At All</p>
+							<p>What does this have to do with design?</p>
+							<p>In an ideal scenario, designers and programmers are basically doing the same thing. 1:1 conceptual mapping from design to code. That's when you mind-meld.</p>
+						</aside>
+					</section>
+					<section class="full-center" data-section="section-1-intro">
+						<img src="img/old_video.gif" alt="Our old video player" style="max-height: 500px">
+						<aside class="notes">Let's go back to that old video page</aside>
+					</section>
+					<section class="full-center" data-section="section-1-intro">
+						<img src="img/new_video.png" alt="Our new video player">
+						<aside class="notes">
+							<p>This is what it looks like now.</p>
+							<p>Something this doesn't show is how many versions came between the two. There. Were. A. Lot.</p>
+							<p>Going back through the codebase was a lot like looking at the rings of a tree. And (remnants)</p>
+							<p>So... let's say you came in between <em>here</em> and <em>here.</em> Actually, I'll give you a specific time to come in. Right before the hackathon.</p>
+							<p>...</p>
+							<p>We never took any time to transition the old player; we just sort of plopped this new UI on top.</p>
+							<p>Rest of the page was never redesigned.</p>
+							<p>Time should be taken to transition and delete old design / code</p>
+							<p>Update your documentation</p>
+							<ul>
+								<li>style guides</li>
+								<li>onboarding docs</li>
+								<li>...</li>
+							</ul>
+							<p>This is a cost that you'll feel a little bit at the time, and it's tempting to skip it, but the costs down the road are <em>so</em> much higher. Exponentially so. Literally, n<super>2</super></p>
+							<p>At KA for bigger changes we do this in a neat incremental / agile way</p>
+						</aside>
+					</section>
+					<section class="full-center" data-section="pre-2">
+						<p>Evolutionary vs revolutionary</p>
+						<aside class="notes">No matter what kind of change, just make sure the old stuff goes away.</aside>
+					</section>
+					<section data-section="section-2-intro">
+						<h1>Overlapping product</h1>
+						<h2>Old Dog Ft. New Tricks</h2>
+					</section>
+					<section class="full-center" data-section="xkcd">
+						<img class="no-shadow" src="./img/xkcd.png" alt="A comic about competing standards for products, eg. USB mini vs. micro vs...">
+						<aside class="notes">
+							<p>One of the differences with this comic that, thankfully, we usually have a bit more power over within an organization, is that A/C chargers, character encodings... these are <em>external</em> standards. In a company, we're almost always dealing with <em>internal</em> alternatives, which gives you a lot more control.</p>
+
+							<p>Let's say you're brought into Google to design a new chat client.</p>
+							<p>They already have about 7 others.</p>
+						</aside>
+					</section>
+					<section class="full-center">
+						<p>TL;DR</p>
+						<p>TO;DC</p>
+						<aside class="notes">
+							<p>Too long didn't read</p>
+							<p>Too old don't care</p>
+							<p>Broken windows: problematic study from '82, maybe false but maps well to software</p>
+							<p>What are the broken windows in the code / design?</p>
+						</aside>
+					</section>
+					<section class="full-center" data-section="section-3-intro">
+						<img src="img/new.gif" alt="'New' sticker" class="no-shadow">
+					</section>
+					<section class="full-center">
+						Components and styleguides = 👍
+						<aside class="notes">
+							<p>Communication costs at an organization are n<super>2</super></p>
+							<p>Create a shared language so you can reduce bloat when you're communicating concepts</p>
+							<p>More design often means less flexibility</p>
+							<p>New employees -- onboarding, have resources for them</p>
+						</aside>
+					</section>
+					<section class="full-center">
+						<h1>🗑</h1>
+						<aside class="notes">
+							<p>So build something that can be thrown away.</p>
+							<p>Closely related to my next point, which is:</p>
+						</aside>
+					</section>
+					<section class="full-center">
+						<h1>👻</h1>
+						<aside class="notes">
+							<h1>Airtight designs are spooky</h1>
+							<p>collections, like lists, menus, drawers, are really good + flexible.</p>
+						</aside>
+					</section>
+					<section data-section="pre-conclusion">
+						"The answer to any prototype / feasibility question is always yes."
+					</section>
+					<section data-section="conclusion-intro">
+						<ol>
+							<li>
+								<p>Take time to transition the old design</p>
+								<ul style="margin-top: 0">
+									<li>Ease of adoption within the team is a <strong>key design requirement</strong></li>
+								</ul>
+							</li>
+							<li>
+								<p>Commit fully or remove completely</p>
+							</li>
+							<li>
+								<p>Make each component disposable</p>
+								<p>Design for obsolescence</p>
+								<p>No tight coupling</p>
+							</li>
+							<li>
+								<p>Let it breathe</p>
+							</li>
+						</ol>
+						<aside class="notes">
+							<p>If you love design, if you love software—you'll love it enough to create as little of it as possible.</p>
+						</aside>
+					</section>
+					<section>
+						Questions?
+					</section>
+				</div>
 			</div>
 		</div>
+		<a href="https://twitter.com/rileyjshaw" class="twitter-link">@rileyjshaw</a>
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
 
 		<script>
+			var body = document.body;
+
 			// More info https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
+				controls: false,
+				embedded: true,
 				history: true,
+				progress: false,
+				transition: 'slide',
 
 				// More info https://github.com/hakimel/reveal.js#dependencies
 				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+					{ src: 'lib/js/classList.js', condition: function () { return !body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true }
 				]
 			});
+
+			var sectionProgress = body.querySelector('.section-progress');
+			Reveal.addEventListener('slidechanged', function (e) {
+				switch (e.currentSlide.dataset.section) {
+					case 'title':
+						body.classList.remove('letterbox');
+						break;
+					case 'intro':
+						body.classList.add('letterbox');
+						break;
+					case 'khan-intro':
+						sectionProgress.classList.add('hidden');
+						setSection(0);
+						break;
+					case 'progress-intro':
+						body.classList.add('progress-intro');
+						sectionProgress.classList.remove('hidden', 'left');
+						break;
+					case 'section-1-intro':
+						body.classList.remove('progress-intro');
+						sectionProgress.classList.add('left');
+						setSection(1);
+						break;
+					case 'pre-2':
+						setSection(1);
+						break;
+					case 'section-2-intro':
+						setSection(2);
+						break;
+					case 'pre-3':
+						setSection(2);
+						break;
+					case 'section-3-intro':
+						setSection(3);
+						break;
+					case 'pre-conclusion':
+						setSection(3);
+						break;
+					case 'conclusion-intro':
+						setSection(4);
+						break;
+				}
+			});
+
+			function setSection (i, suppressTitle) {
+				activeSection.classList.remove('active');
+				activeSection = sectionIcons[i];
+				activeSection.classList.add('active');
+
+				if (!suppressTitle) {
+					topTitle.textContent = activeSection.querySelector('.icon-description').textContent;
+				}
+			}
+
+			var topTitle = body.querySelector('.top-title');
+			var sectionIcons = sectionProgress.querySelectorAll('li');
+			var activeSection = sectionProgress.querySelector('.active');
+			Reveal.addEventListener('fragmentshown', function (e) { setSection(e.fragment.dataset.activeSection, true); });
+			Reveal.addEventListener('fragmenthidden', function (e) { setSection(e.fragment.dataset.activeSection - 1, true); });
 		</script>
 	</body>
 </html>
