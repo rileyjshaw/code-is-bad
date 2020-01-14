@@ -31,6 +31,10 @@
 				text-align: center;
 			}
 
+			.reveal section.full-center h1 {
+				font-size: 2em;
+			}
+
 			.reveal .slides {
 				top: 44px;
 			}
@@ -238,20 +242,39 @@
 		<div class="presentation">
 			<ul class="section-progress hidden">
 				<li class="active"><div class="icon icon-hand">👋</div><span class="icon-description">Intro</span></li>
-				<li><div class="icon icon-radio">📻</div><span class="icon-description">Existing product</span></li>
-				<li><div class="icon icon-cd">📀</div><span class="icon-description">Overlapping product</span></li>
-				<li><div class="icon icon-iphone">📱</div><span class="icon-description">New product</span></li>
-				<li><div class="icon icon-finish">🏁</div><span class="icon-description">Questions!</span></li>
+				<li><div class="icon icon-radio">📻</div><span class="icon-description">Existing project</span></li>
+				<li><div class="icon icon-cd">📀</div><span class="icon-description">Overlapping project</span></li>
+				<li><div class="icon icon-iphone">📱</div><span class="icon-description">New project</span></li>
+				<li><div class="icon icon-finish">🏁</div><span class="icon-description">SIGTERM</span></li>
 			</ul>
 			<div class="reveal">
 				<div class="slides">
+					<section></section>
 					<section data-section="title">
 						<h1 class="with-subtitle">CODE IS BAD</h1>
 						<p>A journey in maintainability with @rileyjshaw.</p>
 						<aside class="notes">
-							<!-- TODO - eventually, fill this out with paragraph form text (including stuff like "thanks for having me") so that folks reading at home can follow along -->
+							<p><em>Author's note: ugh, it always feels awkward writing this out but it's the only way my slides are useful to readers at home. The words here probably diverge from what I said at any particular talk, but give a good idea of what the talk is about.</em></p>
+
 							<p>Hi, thanks so much for having me!</p>
-							<p>This is a short talk about how we, as developers and designers, love a clean slate. We like to build things from scratch, and that's awesome. But a lot of the time there are pretty substantial organizational costs from building things from scratch. I'm gonna leave a bunch of time after for questions or just to hang out, here we go hold onto your butts.</p>
+							<p>I hope you had a great lunch and a great career fair. Both of those things are definitely worthwhile.</p>
+							<p>I actually read the schedule wrong earlier, and I didn't realize that I was going to speak right after the career fair. But that's just about the best introduction to this talk that I could have hoped for. So many of you are at such an exciting point of your life right now. It's such an exciting point your career! Many of you are looking for
+
+							<ul>
+								<li>internships or summer jobs</li>
+								<li>Some of you, full time gig after graduating</li>
+								<li>Picking up contracts while at school</li>
+								<li>Found a large open source project that you like contributing to</li>
+							</ul>
+
+							the point is, so many of you are about to set out to learn the ins and outs of a new codebase. and when you do, i hope you'll think back to this talk, and agree with me wholeheartedly, that:
+
+							<strong>PRESS B</strong>
+							</p>
+
+							<p>code is bad.</p>
+
+							<p>This is a short talk about how we, as developers, love a clean slate. I've given similar talks to designers and PMs, but I think this topic is especially well-suited to engineers. We like to build things from scratch. And that's awesome!! Especially when you're at school, it's a great way to experiment and nail down fundamentals. But in a larger codebase, there are substantial organizational costs when you build, or rebuild, something from scratch. Sometimes this isn't obvious. Sometimes it actually seems like the <em>easiest</em> thing to do is tearing down and starting over. But that's rarely the case.</p>
 						</aside>
 					</section>
 					<section data-section="intro">
@@ -261,15 +284,22 @@
 							<li><del>electrical</del> software engineer</li>
 							<li>khan academy</li>
 						</ul>
+						<aside class="notes">
+							Before we get started, I'm going to talk about myself because I'm really interesting. I was born and raised in Toronto, and I lived there until I went to University in Kingston. I studied Electrical Engineeering, but I've always worked in software. Right now I'm one of the optimization leads at Khan Academy.
+						</aside>
 					</section>
 					<section>
 						<img class="no-shadow" src="./img/ka_logo.png" alt="Khan Academy logo">
 						<img src="./img/ka_algebra_page.png" alt="Khan Academy algebra page screenshot">
-						<aside class="notes">Our mission is..</aside>
+						<aside class="notes">For those of you who haven't come across Khan Academy, it's a website that provides a free and world class education for anyone, anywhere. That's our mission, and we try really hard to keep moving in that direction. This is what it looks like now:</aside>
 					</section>
 					<section class="full-center" data-section="khan-intro">
 						<img src="img/old_video.gif" alt="Our old video player" style="height: 500px">
-						<aside class="notes">Khan Academy started about 10 years ago as a way for our founder to help his cousins learn math. Humble beginnings. We've come a long way since then. Over the summer I rewrote our video player, and that's what sparked a lot of the thought that went into this talk.</aside>
+						<aside class="notes">
+							<p>Aaaand this is what it looked like 10 years ago, when our founder was using it to help his cousins learn math.
+							We've come a long way since then.</p>
+							<p>I mentioned earlier that my role at the company is optimization. My <em>hobby,</em> it turns out, is rewriting our video player. A series of short projects that I started last summer sparked a lot of the thought that went into this talk.</p>
+						</aside>
 					</section>
 					<section data-section="progress-intro">
 						<span class="fragment current-visible" data-active-section="1"></span>
@@ -278,11 +308,15 @@
 						<span class="fragment current-visible" data-active-section="4"></span>
 						<aside class="notes">
 							<p>So, code is bad. What do I <em>mean</em> by that?</p>
-							<p>It's my livelihood, one of my hobbies...</p>
-							<p>Bad milk etc.</p>
-							<p>Maxim: The Best Code is No Code At All</p>
-							<p>What does this have to do with design?</p>
-							<p>In an ideal scenario, designers and programmers are basically doing the same thing. 1:1 conceptual mapping from design to code. That's when you mind-meld.</p>
+							<p>It's my livelihood, one of my hobbies… why do I do it if it's so bad?</p>
+							<p>Well let's nail down what I mean by "bad"</p>
+							<p>I don't mean bad in the same way that Cruella De Ville is bad. Or burning your toast too much is bad. Or season 3 of black mirror was sorta bad.</p>
+							<p>Code <em>goes</em> bad, just like milk goes bad.</p>
+							<p>Except: it doesn't even do that, really. We just <em>make</em> old code bad in our minds, because code is easier to write than it is to read. So unless we're really deliberate about how we write code, we're doomed to reinvent things. And <em>that's</em> when code becomes bad.</p>
+							<p>There's this maxim that The Best Code is No Code At All, and in a lot of cases I completely agree. But we're software engineers, and at some point in our careers, we just might have to write a bit of code.</p>
+							<p>If you take one thing away from my talk today, let it be this: when you add something to a codebase, try your hardest to remove something else. We don't want to go too extreme here, and there are huge advantages to separating parts of your app into their own modular bits. But if you have a suspicion that there's something else solving a similar problem, repurpose it or delete it.</p>
+							<p>I'll walk you through a few common scenarios today.</p>
+							<p>(step through sections)</p>
 						</aside>
 					</section>
 					<section class="full-center" data-section="section-1-intro">
@@ -290,47 +324,92 @@
 						<aside class="notes">Let's go back to that old video page</aside>
 					</section>
 					<section class="full-center" data-section="section-1-intro">
-						<img src="img/new_video.png" alt="Our new video player">
+						<img src="img/new_video.gif" alt="Our new video player">
 						<aside class="notes">
 							<p>This is what it looks like now.</p>
 							<p>Something this doesn't show is how many versions came between the two. There. Were. A. Lot.</p>
-							<p>Going back through the codebase was a lot like looking at the rings of a tree. And (remnants)</p>
-							<p>So... let's say you came in between <em>here</em> and <em>here.</em> Actually, I'll give you a specific time to come in. Right before the hackathon.</p>
-							<p>...</p>
-							<p>We never took any time to transition the old player; we just sort of plopped this new UI on top.</p>
-							<p>Rest of the page was never redesigned.</p>
-							<p>Time should be taken to transition and delete old design / code</p>
+							<p>Going back through the codebase was a lot like looking at the rings of a tree. Each iteration of our player left remnants, which slowly accumulated into a muddled, circus-ass architecture.</p>
+							<p>We learned a few days ago how to work compassionately with legacy code. You might be saying,
+
+							<p>"Riley, you don't sound very compassionate!"</p>
+
+							<p>But this code, in its own beautifully twisted way, told a story. Getting the chance to refactor it was exciting. But it was also scary, and really hard.</p>
+
+							<p>If code is harder to read than it is to write, old, battle-tested code can sometimes feel like reading a different language. It's messy, but there's something really cool happening in old code. There's years of knowledge and experience living in it. Bugfixes for edge-cases that could only be discovered after a few months of use. Straight-up deleting that gets rid of a lot of good work.</p>
+							<p>So. Let's say you came in between…</p>
+						</aside>
+					</section>
+					<section class="full-center" data-section="section-1-intro">
+						<img src="img/old_video.gif" alt="Our old video player" style="max-height: 500px">
+						<aside class="notes"><p> <em>here,</em> and…</p></aside>
+					</section>
+					<section class="full-center" data-section="section-1-intro">
+						<img src="img/new_video.gif" alt="Our new video player" style="max-height: 500px">
+						<aside class="notes">
+							<p><em>here.</em> Actually, I'll give you a specific time to come in. Right before a hackathon.</p>
+							<p>The UI of our player hadn't been updated in a long time. Within the span of a week, we had a new one. We didn't have time to transition the old player; so we just sort of plopped a new UI on top.</p>
+							<p>Hackathons and results-driven sprints can be an effective way to make visible progress quickly; but without a counterbalance you can end up with a huge, buggy, impenetrable system.</p>
+							<p>Time NEEDS TO be taken to transition and delete old designs and old code. And it's not just code that needs updating.</p>
 							<p>Update your documentation</p>
 							<ul>
 								<li>style guides</li>
 								<li>onboarding docs</li>
-								<li>...</li>
+								<li>tooling</li>
+								<li>setup / build scripts and automation</li>
 							</ul>
-							<p>This is a cost that you'll feel a little bit at the time, and it's tempting to skip it, but the costs down the road are <em>so</em> much higher. Exponentially so. Literally, n<super>2</super></p>
-							<p>At KA for bigger changes we do this in a neat incremental / agile way</p>
+							<p>This is a cost that you'll feel a bit at the time, so it can be tempting to skip it. but the costs down the road are <em>so</em> much higher. Like, exponentially higher. Exponential with a pretty low constant, but whatever. that's still so bad!</p>
+							<p>For each iteration that you're still somewhat supporting, complexity doubles. So ensuring that you're clearing out old versions of a concept is critical if you're looking to add new ones.</p>
+							<p>At Khan Academy, for bigger changes we do this incrementally. We've learned a *lot* about the process over the past year, and, like a lot of the work we do, we're going to open source that document soon.</p>
 						</aside>
 					</section>
 					<section class="full-center" data-section="pre-2">
 						<p>Evolutionary vs revolutionary</p>
-						<aside class="notes">No matter what kind of change, just make sure the old stuff goes away.</aside>
+						<aside class="notes">
+							<p>When you join up with a larger team, there's usually two types of code you'll write:</p>
+							<ul>
+								<li>Evolutionary</li>
+								<li>Revolutionary</li>
+							</ul>
+							<p>99 times out of 100, it'll be the former. An evolutionary change can be something like updating an interface to the most recent design, or changing some of your routes to work with the next version of an API. It can also be adding a new feature to the product.</p>
+							<p>On the other hand, sometimes you'll be called on to make a revolutionary change. Maybe you're replacing an entire branch of your product with something else. Maybe you're reimagining what the app or business or service is fundamentally about. This sort of change is an exciting way to shake out loose bits, but can also be a recipe for FrankenCode. We'll talk about that in the next section.</p>
+							<p>Basically, no matter what kind of change you make, just make sure the old stuff goes away. It's absolutely critical if you want development on your product to still be quick and nimble 5, 10 years in.</p>
+						</aside>
 					</section>
 					<section data-section="section-2-intro">
-						<h1>Overlapping product</h1>
-						<h2>Old Dog Ft. New Tricks</h2>
+						<h1>Overlapping project</h1>
+						<h2>Old Dog + New Tricks</h2>
+						<aside class="notes">
+							<p>With most organizations, there will come a time when you branch out. At Khan Academy, we eventually added mobile apps, personalized math missions. We did a months-long learning challenge that culminated in four huge, in-person final events for students across the States and Ireland.</p>
+							<p>These were all exciting opportunities to break new ground. To try out</p>
+							<ul>
+								<li>new ideas</li>
+								<li>new tech</li>
+								<li>new design elements</li>
+							</ul>
+							<p>But if you see a new page as a chance to break from the horrible, clunky design of the Old Way, stop and question that.</p>
+							<ul>
+								<li>What is it about the Old Way that bothers you?</li>
+								<li>How much more time is it going to take to make New Widgets, vs. repurposing Old Widgets?</li>
+								<li>If you hate your old UI… doesn't it make sense to update it? Then you can just use pre-built components for this new feature.</li>
+							</ul>
+							<p>Think about buttons</p>
+							<p>...</p>
+							<p>If you just keep things consolidated, it saves a big headache down the road.</p>
+						</aside>
+
 					</section>
 					<section class="full-center" data-section="xkcd">
 						<img class="no-shadow" src="./img/xkcd.png" alt="A comic about competing standards for products, eg. USB mini vs. micro vs...">
 						<aside class="notes">
-							<p>One of the differences with this comic that, thankfully, we usually have a bit more power over within an organization, is that A/C chargers, character encodings... these are <em>external</em> standards. In a company, we're almost always dealing with <em>internal</em> alternatives, which gives you a lot more control.</p>
-
-							<p>Let's say you're brought into Google to design a new chat client.</p>
-							<p>They already have about 7 others.</p>
+							<p>One of the differences within an organization is that, thankfully, we usually have a bit more power over the other 14 standards. A/C chargers, character encodings... these are <em>external</em> standards. In a company, we're almost always dealing with <em>internal</em> alternatives, which gives you a lot more control.</p>
+							<p>Try to never be in a situation where you have competing standards to begin with. It's a game that everyone loses.</p>
 						</aside>
 					</section>
 					<section class="full-center">
 						<p>TL;DR</p>
 						<p>TO;DC</p>
 						<aside class="notes">
+							<p>Let's take the aesthetic example of visual buttons, and move it to another question of aesthetics: the way your code is written. Especially on the web, libraries change, language features are added, and the appearance of a few tiny signals can be enough to send some developers into a fit.</p>
 							<p>Too long didn't read</p>
 							<p>Too old don't care</p>
 							<p>Broken windows: problematic study from '82, maybe false but maps well to software</p>
@@ -339,11 +418,15 @@
 					</section>
 					<section class="full-center" data-section="section-3-intro">
 						<img src="img/new.gif" alt="'New' sticker" class="no-shadow">
+						<aside class="notes">
+							Also, challenge the fixation on "new" stuff. I can guarentee, there's a lot more to learn from the most legacy code at your organization than there is from... basically anything else.
+						</aside>
 					</section>
 					<section class="full-center">
 						Components and styleguides = 👍
 						<aside class="notes">
-							<p>Communication costs at an organization are n<super>2</super></p>
+							<p>But back to the competing standards thing.</p>
+							<p>Communication costs at an organization are exponential or polynomial or something, i dunno.</p>
 							<p>Create a shared language so you can reduce bloat when you're communicating concepts</p>
 							<p>More design often means less flexibility</p>
 							<p>New employees -- onboarding, have resources for them</p>
@@ -360,16 +443,22 @@
 						<h1>👻</h1>
 						<aside class="notes">
 							<h1>Airtight designs are spooky</h1>
-							<p>collections, like lists, menus, drawers, are really good + flexible.</p>
+							<p>In design, collections, like lists, menus, drawers, are really good + flexible.</p>
+							<p>In code, beware of making your code so tight that it can't be composed or extended. Things will change, and if your code can go with the flow it's way more likely to be useful. Which means it's more likely to be <em>used.</em></p>
 						</aside>
 					</section>
 					<section data-section="pre-conclusion">
-						"The answer to any prototype / feasibility question is always yes."
+						“The answer to any prototype / feasibility question is always yes.”
+						<aside class="notes">
+							<p>And always remember the super cynical advice that:</p>
+							<p>...</p>
+							<p>Beware of hackathons and prototypes. If you can, write prototypes in a completely different language so that they CAN'T be used. Future devs will thank you.</p>
+						</aside>
 					</section>
 					<section data-section="conclusion-intro">
 						<ol>
 							<li>
-								<p>Take time to transition the old design</p>
+								<p>Take time to transition an old feature</p>
 								<ul style="margin-top: 0">
 									<li>Ease of adoption within the team is a <strong>key design requirement</strong></li>
 								</ul>
@@ -378,20 +467,17 @@
 								<p>Commit fully or remove completely</p>
 							</li>
 							<li>
-								<p>Make each component disposable</p>
-								<p>Design for obsolescence</p>
-								<p>No tight coupling</p>
-							</li>
-							<li>
-								<p>Let it breathe</p>
+								<p>Make each component disposable.</p>
+								<p>Design for obsolescence.</p>
+								<p>Tightness is badness.</p>
 							</li>
 						</ol>
 						<aside class="notes">
-							<p>If you love design, if you love software—you'll love it enough to create as little of it as possible.</p>
+							<p>If you love software—you'll love it enough to create as little of it as possible.</p>
 						</aside>
 					</section>
-					<section>
-						Questions?
+					<section class="full-center">
+						<iframe src="//giphy.com/embed/mRB9PmJFOjAw8" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p></p>
 					</section>
 				</div>
 			</div>
